@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  Mobile_postgres_local:
+    image: postgres:13
+    container_name: mobile-banco
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123@banco
+      POSTGRES_DB: mobile
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./db/migration.sql:/docker-entrypoint-initdb.d/migration.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

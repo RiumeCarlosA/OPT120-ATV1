@@ -86,25 +86,24 @@ class ProdutoModel {
     }
   }
 
-  
   async delete(id) {
     try {
-      console.log(`Marcando o produto com ID ${id} como deletado...`);
+      console.log(`Deletando o produto com ID ${id}...`);
       const result = await this.pool.query(
-        `UPDATE produtos SET deleted = true WHERE id = $1 RETURNING *`,
+        `DELETE FROM produtos WHERE id = $1 RETURNING *`,
         [id]
       );
       if (result.rows.length === 0) {
         console.log(`Nenhum produto encontrado para exclusão com ID: ${id}`);
         return null;
       }
-      console.log(`Produto com ID ${id} marcado como deletado.`);
+      console.log(`Produto com ID ${id} deletado com sucesso.`);
       return result.rows[0];
     } catch (error) {
       console.error(`Erro ao deletar o produto com ID ${id}:`, error.message);
       throw new Error('Erro ao deletar o produto no banco de dados.');
     }
-  }
+  }  
 }
 
 export default new ProdutoModel();

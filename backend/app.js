@@ -1,6 +1,5 @@
 import express from 'express';
 import produtoRoutes from './src/routes/ProdutoRoute.js';
-import cors from 'cors';
 
 class App {
     constructor() {
@@ -11,7 +10,6 @@ class App {
 
     middlewares() {
         this.app.use(express.json());
-        this.app.use(cors());
     }
 
     routes() {

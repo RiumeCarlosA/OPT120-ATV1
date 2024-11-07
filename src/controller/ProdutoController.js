@@ -40,7 +40,7 @@ class ProdutoController {
                     errors: ['Produto não existe - {error.produto.update.produto.not-exist}\t\n']
                 })
             }
-            const novosDados = await produto.update(req.body);
+            const novosDados = await ProdutoModel.update(req.params.id, req.body);
 
             return res.json(novosDados);
 
@@ -58,7 +58,7 @@ class ProdutoController {
                     errors: ['Produto não existe - {error.produto.delete.produto.not-exist}\t\n']
                 })
             }
-            const novosDados = await produto.update({"deleted": true});
+            const novosDados = await ProdutoModel.delete(req.params.id);
 
             return res.json(novosDados);
         } catch (e) {
